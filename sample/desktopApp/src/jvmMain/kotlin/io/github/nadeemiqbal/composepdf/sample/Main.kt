@@ -67,34 +67,6 @@ private fun SampleScreen() {
     var preview by remember { mutableStateOf<ImageBitmap?>(null) }
     var status by remember { mutableStateOf("Click a button to generate a PDF.") }
 
-    // Auto-demo: launch with `-Dcomposepdf.demo=true` to cycle through all 3 generations on
-    // a timer. Used to record the README hero GIF — leave off for interactive use.
-    val demoMode = System.getProperty("composepdf.demo") == "true"
-    LaunchedEffect(demoMode) {
-        if (!demoMode) return@LaunchedEffect
-        delay(4_500)
-        run {
-            val file = generateInvoice()
-            lastFile = file
-            preview = renderFirstPage(file)
-            status = "Generated ${file.name} (${file.length() / 1024} KB)"
-        }
-        delay(4_500)
-        run {
-            val file = generateReport()
-            lastFile = file
-            preview = renderFirstPage(file)
-            status = "Generated ${file.name} (${file.length() / 1024} KB)"
-        }
-        delay(4_500)
-        run {
-            val file = generateCertificate()
-            lastFile = file
-            preview = renderFirstPage(file)
-            status = "Generated ${file.name} (${file.length() / 1024} KB)"
-        }
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
